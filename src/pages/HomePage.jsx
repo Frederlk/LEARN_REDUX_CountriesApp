@@ -5,14 +5,16 @@ import { useEffect } from "react";
 import { List } from "../components/List";
 import { Card } from "../components/Card";
 import { Controls } from "../components/Controls";
-import { selectAllCountries, selectCountriesInfo } from "../store/countries/countriesSelectors";
+import { selectCountriesInfo, selectVisibleCountries } from "../store/countries/countriesSelectors";
 import { loadCountries } from "../store/countries/countriesActions";
+import { selectSearch } from "../store/controls/controlsSelectors";
 
 export const HomePage = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const countries = useSelector(selectAllCountries);
+    const search = useSelector(selectSearch);
+    const countries = useSelector((state) => selectVisibleCountries(state, { search }));
     const { status, error, qty } = useSelector(selectCountriesInfo);
 
     useEffect(() => {
