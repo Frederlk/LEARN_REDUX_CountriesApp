@@ -1,8 +1,5 @@
 import styled from "styled-components";
-import { selectNeighbors } from "../store/details/detailsSelectors";
-import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
-import { loadNeighborsByBorders } from "../store/details/detailsActions";
+import { useNeighbors } from "./use-neighbors";
 
 const Wrapper = styled.section`
     margin-top: 3rem;
@@ -106,14 +103,7 @@ export const Info = (props) => {
         push,
     } = props;
 
-    const dispatch = useDispatch();
-    const neighbors = useSelector(selectNeighbors);
-
-    useEffect(() => {
-        if (borders.length) {
-            dispatch(loadNeighborsByBorders(borders));
-        }
-    }, [borders, dispatch]);
+    const neighbors = useNeighbors(borders);
 
     return (
         <Wrapper>
@@ -141,19 +131,19 @@ export const Info = (props) => {
                     </List>
                     <List>
                         <ListItem>
-                            <b>Top Level Domain</b>{" "}
+                            <b>Top Level Domain</b>
                             {topLevelDomain.map((d) => (
                                 <span key={d}>{d}</span>
                             ))}
                         </ListItem>
                         <ListItem>
-                            <b>Currency</b>{" "}
+                            <b>Currency</b>
                             {currencies.map((c) => (
                                 <span key={c.code}>{c.name} </span>
                             ))}
                         </ListItem>
                         <ListItem>
-                            <b>Top Level Domain</b>{" "}
+                            <b>Top Level Domain</b>
                             {languages.map((l) => (
                                 <span key={l.name}>{l.name}</span>
                             ))}
